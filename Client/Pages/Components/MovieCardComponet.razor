@@ -1,0 +1,32 @@
+<div class="jumbotron">
+    <h1><center>Películas.</center></h1>
+    <div class="container-fluid">
+        <div class="row mb-3">
+            @foreach (var movie in Movies)
+            {
+                <div class="col-md-4">
+                    <div class="card flex-md-row mb-4 box-shadow h-md-300">
+                        <div class="card-body d-flex flex-column align-items-start">
+                            <div class="card">
+                                <img src="@movie.Poster" class="card-img-top" alt="No se ha podido cargar la imagen." width="10" height="400">
+                                <div class="card-body">
+                                    <center><h5 class="card-title">@movie.ShortName</h5></center>
+                                    @* <p class="card-text">@movie.Title</p> *@
+                                    <p class="card-text">@movie.Trailer</p>
+                                    <p class="card-text">@movie.Sinopsis</p>
+                                    <p class="card-text">@movie.Score</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">@movie.Premier</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@code{
+    [Parameter] public List<Movie> Movies{get;set;}
+}

@@ -1,0 +1,12 @@
+﻿@page "/"
+@using ProySprintIII.Client.Pages.Components
+@inject IServiceMovie movie
+<div class="jumbotron">
+    <MovieCardComponet Movies ="Movies"></MovieCardComponet>
+</div>
+@code{
+    private List<Movie>Movies;
+    protected override void OnInitialized(){
+        Movies = movie.GetMovies();
+    }
+}

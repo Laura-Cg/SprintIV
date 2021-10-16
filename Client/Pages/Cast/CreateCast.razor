@@ -1,0 +1,35 @@
+@page "/cast/create"
+@using ProySprintIII.Client.Pages.Components
+@inject IServiceMovie repositorio
+@inject NavigationManager navigationManager
+@* @inject IErrorMessage showMessage *@
+
+<h3>Crear Actor.</h3>
+<FormActor OnValidSubmit="Create" Cast = "Cast"></FormActor>
+
+@code{
+    private Cast Cast = new Cast();
+
+    private async Task Create()
+    {
+        var httpResponse = await  repositorio.Post("api/actors", Cast);
+        if (httpResponse.Error)
+        {
+            @* await showMessage.ShowErrorMessage(await httpResponse.GetBody()); *@
+            var body= await httpResponse.HttpResponseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(body);
+            Console.WriteLine("Ocurrio un error");
+        }
+        else
+        {
+            navigationManager.NavigateTo("/actors");
+        }
+        Console.WriteLine($"Actor: {Cast.ActorName}");
+        Console.WriteLine($"Fecha de nacimiento:{Cast.BirthDate}");
+        Console.WriteLine($"Cantidad de créditos: {Cast.KnowCredits}");
+        Console.WriteLine($"Nominaciones: {Cast.Nominations}");
+        Console.WriteLine($"Biografía: {Cast.Biography}");
+        Console.WriteLine($"Foto base64: {Cast.ActorImage}");
+
+    }
+} 

@@ -1,0 +1,152 @@
+@using ProySprintIII.Client.Pages.Components
+@using ProySprintIII.Client.Model
+<EditForm Model = "Movie" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    @*Nombre de la pelicula*@
+    <div class="container">
+        <div class="jumbotron">
+            <div class="form-group">
+                <InputText class="form-control" @bind-Value="@Movie.MovieName" placeholder="Nombre de la película"></InputText>
+                <ValidationMessage For="@(()=>Movie.MovieName)"></ValidationMessage>
+            </div>
+            <div class=form-group>
+                <div class="row">
+                    <div class="col col-sm-9">
+                        @* Inpuut para ingresar la puntuación *@
+                        <label>Puntuación:</label>
+                        <InputNumber class="form-control" @bind-Value="@Movie.Score" placeholder="Cantidad de créditos">
+                        </InputNumber>
+                        <ValidationMessage For="@(()=>Movie.Score)"></ValidationMessage>
+                    </div>
+                    <div class="col col-sm-3">
+                        @* Checkbox para definir si esta o no en cartelera *@
+                        <div><label>    </label></div>
+                        <div class="mb-3">
+                        <InputCheckbox id="en_cartelera" class="form-check-input" @bind-Value="@Movie.EnCartelera" >
+                        </InputCheckbox>
+                        <label class="form-check-label" for="en_cartelera">En cartelera</label>
+                        <ValidationMessage For="@(()=>Movie.EnCartelera)"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        @* Input para ingresar el trailer *@
+                        <label>Trailer:</label>
+                        <InputText class="form-control" @bind-Value="@Movie.Trailer" placeholder="Trailer"></InputText>
+                        <ValidationMessage For="@(()=>Movie.Trailer)"></ValidationMessage>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            @* Fecha de lanzamiento*@
+                            <label>Fecha de lanzamiento:</label>
+                            <InputDate class="form-control" @bind-Value="@Movie.Premier" ></InputDate>
+                            <ValidationMessage For="@(()=>Movie.Premier)"></ValidationMessage>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* Sinopsis de la pelicula... descripción *@
+            <div class="form-group">
+                <InputTextArea class="form-control" @bind-Value="@Movie.Sinopsis" placeholder="Sinopsis"></InputTextArea>
+                <ValidationMessage For="@(()=>Movie.Sinopsis)"></ValidationMessage>
+            </div>
+            @* Selección de categorías *@
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label>Selecciona las categorías</label>
+                        <div>
+                            <SelectorMultiple Seleccionados="Seleccionados" NoSeleccionados="NoSeleccionados">
+                            </SelectorMultiple>
+                        </div>
+                    </div>
+                    <div class="col">
+                        @* Poster => Imagen de la pelicula *@
+                        <div class="form-group">
+                            <ImageComponent Label="" ImageSelected="ImageSelected" ImageURL=""></ImageComponent>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* <div class="form-group">
+                <label>Actores</label>
+                <div>
+                    <SelectorMultipleTypeaHead.razor Context="Cast" SearchMethod="BuscarActores" ElementosSeleccionados="ActoresSeleccionados">
+                        <MyListTemplate>
+                            @Cast.ActorName
+                        </MyListTemplate>
+                        <MyResultTemplate>
+                            <img style="width: 30px" src="@Cast.ActorImage" />
+                            @Cast.ActorName
+                        </MyResultTemplate>
+                    </SelectorMultipleTypeaHead.razor>
+                </div>                 
+            </div> 
+            <div class="form-group">
+                <label>Actores:</label>
+                <div>
+                    <SelectorMultipleTypeaHead Context="Cast"
+                    SearchMethod="BuscarActores" ElementosSeleccionados="ActoresSeleccionados">
+
+                    <MyListTemplate> @Cast.ActorName</MyListTemplate>
+                    <MyResultTemplate><img style="width: 30px" src="@Cast.ActorImage" />
+                    @Cast.ActorName
+
+                    </MyResultTemplate>
+                    </SelectorMultipleTypeaHead>
+                </div>
+            </div> *@                        
+        </div>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-success">Guardar</button>
+        <a href="/movies" class="btn btn-danger">Cancelar</a>
+</div>
+</EditForm>
+
+@code {
+    [Parameter] public Movie Movie { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<Category> CategoriasSeleccionadas { get; set; } = new List<Category>();
+    [Parameter] public List<Category> CategoriasNoSeleccionadas { get; set; } = new List<Category>();
+
+    private string posterTemporal;
+    private List<SelectorMultipleModel> NoSeleccionados { get; set; } = new List<SelectorMultipleModel>();
+    private List<SelectorMultipleModel> Seleccionados { get; set; } = new List<SelectorMultipleModel>();
+    private void ImageSelected(string imageB64)
+    {
+        Movie.Poster = imageB64;
+    }
+
+    protected override void OnInitialized()
+    {
+        Seleccionados = CategoriasSeleccionadas.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
+        NoSeleccionados = CategoriasNoSeleccionadas.Select(x => new SelectorMultipleModel(x.Id.ToString(), x.Name)).ToList();
+        if (!string.IsNullOrWhiteSpace(Movie.Poster))
+        {
+            posterTemporal = Movie.Poster;
+            Movie.Poster = null;
+        }
+    }
+    @*
+    private async Task<IEnumerable<Cast>> BuscarActores(string searchText)
+    {
+        return new List<Cast>(){
+            new Cast(){Id=1, ActorName="Yaneth Mejía", ActorImage
+
+            ="https://pbs.twimg.com/profile_images/1079060744891785216/dAsFSbHH_400x400.jpg"},
+
+            new Cast(){Id=2, ActorName="Carolina Marquez", ActorImage
+
+            ="https://archivo.autonoma.edu.co/sites/default/files/styles/medium/public/carolina-marquez-narvaez.jpg?itok=CcL43PAR"},
+
+            new Cast(){Id=3, ActorName="Juan Esteban", ActorImage
+
+            ="https://cdn1.vectorstock.com/i/1000x1000/29/65/cinema-award-best-actor-flat-style-vector-13602965.jpg"}
+        };
+    }
+    *@
+}

@@ -1,0 +1,17 @@
+@page "/actors"
+@using ProySprintIII.Client.Pages.Components
+@inject IServiceCast cast
+<div class="jumbotron">
+    <div class="form-group mb-3">
+        <a class="btn btn-info" href="cast/create">Agregar</a>
+        <a class="btn btn-info" href="cast/edit">Editar</a>
+    </div>
+</div>
+<CastCardComponent Casts="Casts"></CastCardComponent>
+@code {
+    private List<Cast> Casts;
+    protected override void OnInitialized()
+    {
+        Casts = cast.GetCast();
+    }
+}

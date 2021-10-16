@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="jumbotron">
+        <EditForm Model="Cast" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <div class="mb-3">
+                <InputText class="form-control" @bind-Value="@Cast.ActorName" placeholder="Nombre del actor"></InputText>
+                <ValidationMessage For="@(()=>Cast.ActorName)"></ValidationMessage>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="col-sm-8">
+                    <label>Fecha de nacimiento:</label>
+                    <InputDate class="form-control" @bind-Value="@Cast.BirthDate"></InputDate>
+                    <ValidationMessage For="@(()=>Cast.BirthDate)"></ValidationMessage>
+                </div>
+
+                <div class="col-sm-4">
+                    <label>Créditos:</label>
+                    <InputNumber class="form-control" @bind-Value="@Cast.KnowCredits" placeholder="Cantidad de créditos">
+                    </InputNumber>
+                    <ValidationMessage For="@(()=>Cast.KnowCredits)"></ValidationMessage>
+                </div>
+            </div>
+            <div class="mb-3">
+                <InputText class="form-control" @bind-Value="@Cast.Nominations" placeholder="Nominaciones"></InputText>
+                <ValidationMessage For="@(()=>Cast.Nominations)"></ValidationMessage>
+            </div>
+            <div class="mb-3">
+                <InputTextArea class="form-control" @bind-Value="@Cast.Biography" placeholder="Biografía"></InputTextArea>
+                <ValidationMessage For="@(()=>Cast.Biography)"></ValidationMessage>
+            </div>
+            <div class="mb-3">
+                <ImageComponent Label="Foto del Actor" ImageSelected="ImageSelected" ImageURL="@imageURL"></ImageComponent>
+            </div>
+            <div class="form-group"></div>
+            <button class="btn btn-success">Guardar</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    string imageURL;
+    [Parameter] public Cast Cast { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(Cast.ActorImage))
+        {
+            imageURL = Cast.ActorImage;
+            Cast.ActorImage = null;
+        }
+    }
+
+    private void ImageSelected(string imageB64)
+    {
+        Cast.ActorImage = imageB64;
+        imageURL = null;
+    }
+
+}

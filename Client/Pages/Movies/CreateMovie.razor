@@ -1,0 +1,36 @@
+@page "/movies/create"
+@inject NavigationManager navigationManager
+@using ProySprintIII.Client.Pages.Components
+
+<h3>Crear películas.</h3>
+
+<FormMovie Movie="Movie" OnValidSubmit="Create" CategoriasNoSeleccionadas="CategoriasNoSeleccionadas"></FormMovie>
+
+@code {
+    private Movie Movie = new Movie();
+    private List<Category> CategoriasNoSeleccionadas = new List<Category>();
+
+    protected override void OnInitialized()
+    {
+        CategoriasNoSeleccionadas = new List<Category>(){
+            new Category(){Id = 1, Name="Comedia"},
+            new Category(){Id = 2, Name="Terror"},
+            new Category(){Id = 3, Name="Ciencia Ficción"},
+            new Category(){Id = 4, Name="Documentales"},
+            new Category(){Id = 5, Name="Comedia"}
+        };
+    }
+    void Create()
+    {
+        
+        @*Con el navigationManager vamos a redireccionar al usuario a otras rutas dentro del sistema *@
+        Console.WriteLine(navigationManager.Uri);
+        navigationManager.NavigateTo("");
+        Console.WriteLine($"Pelicula: {Movie.MovieName}");
+        Console.WriteLine($"Esta en cartelera: {Movie.EnCartelera}");
+        Console.WriteLine($"Trailer: {Movie.Trailer}");
+        Console.WriteLine($"Premier: {Movie.Premier}");
+        Console.WriteLine($"Sinopsis: {Movie.Sinopsis}");
+        Console.WriteLine($"Poster: {Movie.Poster}");
+    }
+}

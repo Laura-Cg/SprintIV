@@ -1,0 +1,25 @@
+@page "/categories/create"
+@using ProySprintIII.Client.Pages.Components
+@inject IServiceMovie movie
+@inject NavigationManager navigationManager
+
+<FormCategory OnValidSubmit="Create" Category="Category"></FormCategory>
+
+@code{
+    private Category Category= new Category();
+
+    private async void Create(){ 
+        var httpResponse = await movie.Post("api/categories", Category);
+        if(httpResponse.Error){
+            @*body = await httpResponse.GetBody();
+            await showMessage.ShowErrorMessage(body); 
+             await showMessage.ShowErrorMessage(await httpResponse.GetBody());*@
+            var body= await httpResponse.HttpResponseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(body);
+            Console.WriteLine("Ocurrio un error");
+        }else{
+            navigationManager.NavigateTo("/categories");
+        }
+        Console.WriteLine($"Nombre de la categoría: {Category.Name}");
+    }
+}

@@ -1,0 +1,39 @@
+@page "/movie/edit/{Id:int}"
+@using ProySprintIII.Client.Pages.Components
+<h6>Editar película.</h6>
+<div>
+    <FormMovie Movie="Movie" OnValidSubmit="Edit" CategoriasNoSeleccionadas="CategoriasNoSeleccionadas"></FormMovie>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private Movie Movie;
+    private List<Category> CategoriasNoSeleccionadas = new List<Category>();
+    protected override void OnInitialized()
+    {
+        Movie = new Movie()
+        {
+            MovieName = "El juego del calamar",
+            EnCartelera = true,
+            Sinopsis = "Sinopsis...",
+            Trailer = "Trailer"
+        };
+        CategoriasNoSeleccionadas = new List<Category>()
+        {
+            new Category(){Id = 1, Name="Comedia"},
+            new Category(){Id = 2, Name="Terror"},
+            new Category(){Id = 3, Name="Ciencia Ficción"},
+            new Category(){Id = 4, Name="Documentales"},
+            new Category(){Id = 5, Name="Comedia"}
+        };
+    }
+    
+    void Edit()
+    {
+        Console.WriteLine($"Pelicula: {Movie.MovieName}");
+        Console.WriteLine($"Premier: {Movie.Premier}");
+        Console.WriteLine($"Esta en cartelera: {Movie.EnCartelera}");
+        Console.WriteLine($"Poster: {Movie.Poster}");
+        Console.WriteLine($"Sinopsis: {Movie.Sinopsis}");
+    }
+}

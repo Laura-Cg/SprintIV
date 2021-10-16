@@ -1,0 +1,31 @@
+@page "/cast/edit"
+@using ProySprintIII.Client.Pages.Components
+
+<h3>Editar Cast.</h3>
+
+<FormActor Cast="Cast" OnValidSubmit="Edit"></FormActor>
+
+@code {
+
+    [Parameter] public int Id { get; set; }
+    Cast Cast = new Cast();
+    protected override void OnInitialized()
+    {
+        Cast = new Cast()
+        {
+            Id = Id,
+            ActorName = "Actor prueba",
+            KnowCredits = 18,
+            BirthDate = DateTime.Today
+        };
+    }
+
+    void Edit()
+    {
+        Console.WriteLine($"Actor: {Cast.ActorName}");
+        Console.WriteLine($"Fecha de nacimiento:{Cast.BirthDate}");
+        Console.WriteLine($"Cantidad de créditos: {Cast.KnowCredits}");
+        Console.WriteLine($"Foto base64: {Cast.ActorImage}");
+
+    }
+}

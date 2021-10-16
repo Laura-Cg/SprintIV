@@ -1,0 +1,12 @@
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.csproj.AssemblyReference.cache
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.AssemblyInfoInputs.cache
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.AssemblyInfo.cs
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.csproj.CoreCompileInputs.cache
+C:\ProysCicloIII\ProySprintIII\Shared\bin\Debug\net5.0\ProySprintIII.Shared.deps.json
+C:\ProysCicloIII\ProySprintIII\Shared\bin\Debug\net5.0\ProySprintIII.Shared.dll
+C:\ProysCicloIII\ProySprintIII\Shared\bin\Debug\net5.0\ref\ProySprintIII.Shared.dll
+C:\ProysCicloIII\ProySprintIII\Shared\bin\Debug\net5.0\ProySprintIII.Shared.pdb
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.dll
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ref\ProySprintIII.Shared.dll
+C:\ProysCicloIII\ProySprintIII\Shared\obj\Debug\net5.0\ProySprintIII.Shared.pdb
